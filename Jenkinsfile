@@ -3,7 +3,7 @@ pipeline {
 
     tools {
         // Install the Maven version configured as "M3" and add it to the path.
-        maven "maven3"
+        maven "Maven3"
     }
 
     stages {
@@ -50,17 +50,19 @@ pipeline {
         stage("Nexus") {
             steps {
                 nexusArtifactUploader artifacts: 
-                [[artifactId: 'my-app',
-                 classifier: '',
-                  file: 'target/my-app-1.2.jar',
-                   type: 'jar']], 
-                    groupId: 'com.mycompany.app',
-                     nexusUrl: 'http://192.168.56.201:8081/',
-                      nexusVersion: 'nexus3', 
-                      protocol: 'http',
-                       repository: 'newrepo',
-                       credentialsId: 'nexus_pwd',
-                        version: '1.2'
+                [[
+                    artifactId: 'my-app',
+                    classifier: '',
+                    file: 'target/my-app-1.2.jar',
+                    type: 'jar'
+                ]],
+                credentialsId: 'nexus_pwd',
+                groupId: 'com.mycompany.app',
+                nexusUrl: 'localhost:8081',
+                nexusVersion: 'nexus3',
+                protocol: 'http',
+                repository: 'newrepo',
+                version: '1.2'
             }
         }
 

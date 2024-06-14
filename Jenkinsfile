@@ -60,6 +60,7 @@ pipeline {
                       nexusVersion: 'nexus3', 
                       protocol: 'http',
                        repository: 'newrepo',
+                       credentialsId: 'nexus_pwd'
                         version: '1.2'
             }
         }

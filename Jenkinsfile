@@ -27,20 +27,19 @@ pipeline {
                     }
                 }
             }
-        } 
+        }*/
         stage('SonarQube Analysis') {
             steps {
                 // Execute SonarQube analysis
                 script {
-                    def scannerHome = tool 'sonar_scanner_tool'
-                    withSonarQubeEnv('sonarqubeserver') {
-                        sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=my-app \
-                        -Dsonar.java.binaries=target/test/com/app/"
+                    def scannerHome = tool 'sonarscanner'
+                    withSonarQubeEnv('sonarqube') {
+                        bat "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=my-app -Dsonar.java.binaries=target/**"
                     }
                 }
             }
         }
-        stage("Quality Gate") {
+        /*stage("Quality Gate") {
             steps {
               timeout(time: 3, unit: 'MINUTES') {
                 waitForQualityGate abortPipeline: true

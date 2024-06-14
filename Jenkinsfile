@@ -54,13 +54,12 @@ pipeline {
                  classifier: '',
                   file: 'target/my-app-1.2.jar',
                    type: 'jar']], 
-                   credentialsId: '',
                     groupId: 'com.mycompany.app',
                      nexusUrl: 'http://192.168.56.201:8081/',
                       nexusVersion: 'nexus3', 
                       protocol: 'http',
                        repository: 'newrepo',
-                       credentialsId: 'nexus_pwd'
+                       credentialsId: 'nexus_pwd',
                         version: '1.2'
             }
         }

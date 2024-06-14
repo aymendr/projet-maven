@@ -27,7 +27,7 @@ pipeline {
                     }
                 }
             }
-        }*/ 
+        } 
         stage('SonarQube Analysis') {
             steps {
                 // Execute SonarQube analysis
@@ -46,6 +46,23 @@ pipeline {
                 waitForQualityGate abortPipeline: true
               }
             }
-        }        
+        }*/
+        stage("Nexus") {
+            steps {
+                nexusArtifactUploader artifacts: 
+                [[artifactId: 'my-app',
+                 classifier: '',
+                  file: 'target/*.jar',
+                   type: 'jar']], 
+                   credentialsId: '',
+                    groupId: 'com.mycompany.app',
+                     nexusUrl: 'http://192.168.56.201:8081/',
+                      nexusVersion: 'nexus3', 
+                      protocol: 'http',
+                       repository: 'newrepo',
+                        version: '1.2'
+            }
+        }
+
     }
 }

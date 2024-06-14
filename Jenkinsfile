@@ -1,12 +1,6 @@
 pipeline {
     agent any
-    environment {
-        NEXUS_VERSION = "nexus3"
-        NEXUS_PROTOCOL = "http"
-        NEXUS_URL = "http://192.168.56.201:8081/"
-        NEXUS_REPOSITORY = "newrepo"
-        NEXUS_CREDENTIAL_ID = "nexus_pwd"
-    }
+
     tools {
         // Install the Maven version configured as "M3" and add it to the path.
         maven "maven3"
@@ -53,33 +47,20 @@ pipeline {
               }
             }
         }*/
-
-
-        stage('Upload to Nexus') {
+        stage("Nexus") {
             steps {
-                script {
-                    // Définir le chemin vers l'artefact généré
-                    def artifactPath = "target/my-app-1.2.jar"
-                    def artifactGroup = "com.mycompany.app"
-                    def artifactName = "my-app"
-                    def artifactVersion = "1.2"
-
-                    nexusArtifactUploader(
-                        nexusVersion: NEXUS_VERSION,
-                        protocol: NEXUS_PROTOCOL,
-                        nexusUrl: NEXUS_URL,
-                        groupId: artifactGroup,
-                        version: artifactVersion,
-                        repository: NEXUS_REPOSITORY,
-                        credentialsId: NEXUS_CREDENTIAL_ID,
-                        artifacts: [
-                            [artifactId: artifactName,
-                             classifier: '',
-                             file: artifactPath,
-                             type: 'jar']
-                        ]
-                    )
-                }
+                nexusArtifactUploader artifacts: 
+                [[artifactId: 'my-app',
+                 classifier: '',
+                  file: 'target/my-app-1.2.jar',
+                   type: 'jar']], 
+                    groupId: 'com.mycompany.app',
+                     nexusUrl: 'http://192.168.56.201:8081/',
+                      nexusVersion: 'nexus3', 
+                      protocol: 'http',
+                       repository: 'newrepo',
+                       credentialsId: 'nexus_pwd',
+                        version: '1.2'
             }
         }
 

@@ -52,7 +52,7 @@ pipeline {
                 nexusArtifactUploader artifacts: 
                 [[artifactId: 'my-app',
                  classifier: '',
-                  file: 'target/*.jar',
+                  file: 'target/my-app-1.2.jar',
                    type: 'jar']], 
                    credentialsId: '',
                     groupId: 'com.mycompany.app',
